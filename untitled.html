@@ -1,0 +1,91 @@
+<?php whitle (have_posts() ) : the_post(); ?>
+	
+		<div style="z-index:2;" id="post-<?php the_ID(); ?>" class="dt-portfolio-item">
+			<h2> <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" >
+			<?php the_title(); ?>
+
+			<?php the_excerpt(); ?>
+			<?php the_post_thumbanil(); ?>
+		</div>
+<?php endwhile; ?>
+
+
+<?php if (is_home() && ! is_front_page() ):?>
+	<header>
+		<h1 class="page-title screen-reader-text"><?php signle_post_title(); ?></h1>
+	</header>
+<?php endif; ?>
+
+
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+<h1><?php the_title(); ?></h1>
+<h4>Posted on <?php the_time('F jS, Y') ?></h4>
+<p><?php the_content(__('(more...)')); ?></p>
+<hr> <?php endwhile; else: ?>
+<p><?php _e('Sorry, no posts matched your criteria.'); ?></p><?php endif; ?>
+
+
+<?php whitle (have_posts() ) : the_post(); ?>
+	
+		<div style="z-index:2;" id="post-<?php the_ID(); ?>" class="dt-portfolio-item">
+			<h2> <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" >
+			<?php the_title(); ?>
+
+			<?php the_excerpt(); ?>
+			<?php the_post_thumbanil(); ?>
+		</div>
+
+<?php endwhile; ?>
+
+<?php if ( have_posts() ); ?>
+
+<?php else : ?>
+	<?php get_template_part('get_template_part/content', 'none'); ?>
+<?php endif; ?>
+
+
+
+
+get_header(); ?>
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+		<?php if ( have_posts() ) : ?>
+
+			<?php /* The loop */ ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<?php get_template_part( 'content', get_post_format() ); ?>
+			<?php endwhile; ?>
+
+			<?php twentythirteen_paging_nav(); ?>
+
+		<?php else : ?>
+			<?php get_template_part( 'content', 'none' ); ?>
+		<?php endif; ?>
+
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+
+
+
+
+<?php rewind_posts(); ?>
+
+<?php
+
+$args = array( 'post_type' => 'portfolio_item', 'posts_per_page' => 10 );
+$loop = new WP_Query( $args );
+while ( $loop->have_posts() ) : $loop->the_post();
+
+the_title();
+echo '<div class="entry-content">';
+the_content();
+echo '</div>';
+
+endwhile;
+
+?>
